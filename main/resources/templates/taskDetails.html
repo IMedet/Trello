@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="/layout/mainLayout.html" >
+<body class="container">
+<div class="row">
+    <div class="col">
+        <div class="container" layout:fragment="mainFragment">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="mb-3 card-body">
+                            <form class="col-12 form-control" th:action="@{'/updateTask/' + ${task.getId()}}" method="post">
+                                <div class="mb-3">
+                                    <p class="form-label">ID</p>
+                                    <input th:value="${task.getId()}" name="taskId" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <p class="form-label">Task Name</p>
+                                    <input type="text"  name="taskName" th:value="${task.getTitle()}">
+                                </div>
+                                <div class="mb-3">
+                                    <p class="form-label">Status</p>
+                                    <input type="number"  name="taskStatus" th:value="${task.getStatus()}">
+                                </div>
+                                <div class="mb-3">
+                                    <p class="form-label">Description</p>
+                                    <input type="text" name="taskDesc" th:value="${task.getDescription()}">
+                                </div>
+                                <button type="submit" class="btn btn-success">Update Task</button>
+                            </form>
+                            <br>
+                            <form class="form-control" th:action="@{'/deleteTask/' + ${task.getId()}}" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <h2><strong>Comment Section</strong></h2>
+                    <form th:if="${task.getStatus()==1 || task.getStatus()==0 }" class="mb-3 form-control" th:action="@{'/addComment'}" method="post">
+                        <div class="mb-3">
+                            <p>Comment: </p>
+                            <input type="text" name="comment" >
+                            <input type="hidden" th:value="${task.getId()}" name="taskId">
+                        </div>
+
+                        <div class="mb-3">
+                            <button>Add Comment</button>
+                        </div>
+                    </form>
+                    <div class="mb-3 form-control">
+                        <table class="col-12">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Comment text</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="comment : ${comments}">
+                                <td th:text="${comment.getId()}"></td>
+                                <td th:text="${comment.getComment()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

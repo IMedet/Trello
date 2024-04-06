@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head th:insert="~{/vendor/header.html}">
+</head>
+<body>
+<div class="container" th:insert="~{/vendor/navbar.html}"></div>
+<div class="container mt-2 mb-3"></div>
+<div class="row">
+    <div class="col-9">
+        <div class="container" layout:fragment="mainFragment"></div>
+    </div>
+</div>
+</body>
+</html>

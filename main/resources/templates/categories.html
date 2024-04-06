@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="/layout/mainLayout.html" >
+<body class="container">
+<div class="row">
+    <div class="col">
+        <div class="container" layout:fragment="mainFragment">
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticAddCategory">
+                    +New Category
+                </button>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="col-12">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>TaskCategory Name</th>
+                            <th>Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="category : ${categoriesList}" >
+                            <td th:text="${category.getId()}"></td>
+                            <td th:text="${category.getName()}"></td>
+                            <td><a class="btn btn-primary" th:href="@{'/taskCategoryDetails/' + ${category.getId()}}">Details</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal fade" id="staticAddCategory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticAddCategoryLabel">ADD NEW CATEGORY</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{'/addTaskCategory'}" method="post">
+                                    <label class="form-label">Category Name:</label>
+                                    <input placeholder="Category Name" name="newCategory" type="text">
+                                    <br>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">ADD Folder</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
